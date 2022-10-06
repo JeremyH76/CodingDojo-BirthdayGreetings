@@ -18,7 +18,19 @@ namespace CodingDojo_BirthdayGreetings
 
         public void FindSearchAndSend(DateOnly day)
         {
-            
+            List<Friend> friends = FriendDao.GetFriends().Where(x => x.DateOfBirth.Month == day.Month && x.DateOfBirth.Day == day.Day).ToList();
+            if (friends.Count > 0)
+            {
+                Sender.SendGreetings(friends);
+                foreach (Friend f in friends)
+                {
+                    Console.WriteLine("Greetings sent to "+f.Email);
+                }
+            }
+            else
+            {
+                Console.WriteLine("No birthday today");
+            }
         }
 
     }

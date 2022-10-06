@@ -20,5 +20,15 @@ namespace CodingDojo_BirthdayGreetings
             DateOfBirth = dateOfBirth;
             Email = email;
         }
+
+        public override bool Equals(object? obj)
+        {
+            if (obj.GetType() == this.GetType())
+            {
+                Friend f2 = (Friend)obj;
+                return (f2.Email == this.Email && f2.FirstName == this.FirstName && f2.LastName == this.LastName && f2.DateOfBirth == this.DateOfBirth);
+            }
+            return false;
+        }
     }
 }
