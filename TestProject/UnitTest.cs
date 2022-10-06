@@ -119,7 +119,7 @@ namespace TestProject
             senderMock.Setup(x => x.SendGreetings(It.IsAny<List<Friend>>()));
             BirthdayGreetings bg = new BirthdayGreetings(friendDao.Object, senderMock.Object);
             bg.FindSearchAndSend(new DateOnly(2024, 2, 29));
-            senderMock.Verify(x => x.SendGreetings(It.Is<List<Friend>>(x => x.Count == 1 && friends[0].Equals(x[0]) && friends[3].Equals(x[1]))), Times.Once);
+            senderMock.Verify(x => x.SendGreetings(It.Is<List<Friend>>(x => x.Count == 1 && friends[0].Equals(x[0]))), Times.Once);
         }
 
         [Fact]
@@ -155,7 +155,7 @@ namespace TestProject
             senderMock.Setup(x => x.SendGreetings(It.IsAny<List<Friend>>()));
             BirthdayGreetings bg = new BirthdayGreetings(friendDao.Object, senderMock.Object);
             bg.FindSearchAndSend(new DateOnly(2023, 2, 28));
-            senderMock.Verify(x => x.SendGreetings(It.Is<List<Friend>>(x => x.Count == 1 && friends[0].Equals(x[0]) && friends[3].Equals(x[1]))), Times.Once);
+            senderMock.Verify(x => x.SendGreetings(It.Is<List<Friend>>(x => x.Count == 1 && friends[0].Equals(x[0]))), Times.Once);
         }
     }
 }
