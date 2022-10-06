@@ -13,7 +13,8 @@ namespace CodingDojo_BirthdayGreetings.Out
     {
         private SmtpClient SmtpClient { get; }
         private string MyEmail { get; }
-        public EmailSendGreetings(string smtp, string myEmail, string user, SecureString password)
+        private bool Reminder { get; }
+        public EmailSendGreetings(string smtp, string myEmail, string user, SecureString password, bool reminder)
         {
             MyEmail = myEmail;
             SmtpClient = new SmtpClient(smtp)
@@ -22,21 +23,43 @@ namespace CodingDojo_BirthdayGreetings.Out
                 Credentials = new NetworkCredential(user, password),
                 EnableSsl = true
             };
+            Reminder = reminder;
         }
         public void SendGreetings(List<Friend> friends)
         {
+            bool sent = true;
             foreach (Friend f in friends)
             {
                 try
                 {
-                    SmtpClient.Send(MyEmail, f.Email, "Happy Birthday !", "Best wishes on your Birthday " + f.FirstName + " ! :)");
-                    new ConsoleSendGreetings().SendGreetings(friends);
+                    string message = "Best wishes on your Birthday " + f.FirstName + " ! :)";
+                    if (Reminder && friends.Count > 1)
+                    {
+                        message += "\n\nToday is ";
+                        List<string> friendsNames = new List<string>();
+                        foreach (Friend otherFriend in friends.Where(x => !f.Equals(x)))
+                        {
+                            friendsNames.Add(otherFriend.FirstName + " " + otherFriend.LastName);
+                        }
+                        if (friendsNames.Count > 1)
+                        {
+                            message += String.Join(", ", friendsNames.GetRange(0, friendsNames.Count - 1));
+                            message += " and " + friendsNames[friendsNames.Count - 1] + "'s birthday too.\nDon't forget to send them a message !";
+                        }
+                        else
+                        {
+                            message += friendsNames[0] + "'s birthday too.\nDon't forget to send him a message !";
+                        }
+                    }
+                    SmtpClient.Send(MyEmail, f.Email, "Happy Birthday !", message );
                 }
                 catch (Exception e)
                 {
+                    sent = false;
                     Console.Error.WriteLine(e.Message);
                 }
             }
+            if (sent) { new ConsoleSendGreetings().SendGreetings(friends); }
         }
 
         public static SecureString GetPassword()
