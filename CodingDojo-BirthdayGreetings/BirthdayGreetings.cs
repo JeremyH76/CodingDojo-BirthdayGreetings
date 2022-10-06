@@ -20,7 +20,15 @@ namespace CodingDojo_BirthdayGreetings
 
         public void FindSearchAndSend(DateOnly day)
         {
-            List<Friend> friends = FriendDao.GetFriends().Where(x => x.DateOfBirth.Month == day.Month && x.DateOfBirth.Day == day.Day).ToList();
+            List<Friend> friends;
+            if (day.Month == 2 && day.Day == 28 && day.AddDays(1).Day != 29)
+            {
+                friends = FriendDao.GetFriends().Where(x => x.DateOfBirth.Month == 2 && (x.DateOfBirth.Day == 28 || x.DateOfBirth.Day == 29)).ToList();
+            }
+            else
+            {
+                friends = FriendDao.GetFriends().Where(x => x.DateOfBirth.Month == day.Month && x.DateOfBirth.Day == day.Day).ToList();
+            }
             if (friends.Count > 0)
             {
                 Sender.SendGreetings(friends);
