@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CodingDojo_BirthdayGreetings.In;
+using CodingDojo_BirthdayGreetings.Out;
 
 namespace CodingDojo_BirthdayGreetings
 {

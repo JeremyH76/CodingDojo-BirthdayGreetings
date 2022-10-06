@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CodingDojo_BirthdayGreetings
+namespace CodingDojo_BirthdayGreetings.Out
 {
-    public interface IFriendDao
+    public interface ISendGreetings
     {
-        public List<Friend> GetFriends();
+        public void SendGreetings(List<Friend> friends);
     }
 }

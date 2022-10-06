@@ -1,5 +1,7 @@
 using Castle.Components.DictionaryAdapter.Xml;
 using CodingDojo_BirthdayGreetings;
+using CodingDojo_BirthdayGreetings.In;
+using CodingDojo_BirthdayGreetings.Out;
 using Moq;
 
 namespace TestProject
