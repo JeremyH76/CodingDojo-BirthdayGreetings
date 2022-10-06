@@ -22,10 +22,6 @@ namespace CodingDojo_BirthdayGreetings
             if (friends.Count > 0)
             {
                 Sender.SendGreetings(friends);
-                foreach (Friend f in friends)
-                {
-                    Console.WriteLine("Greetings sent to "+f.Email);
-                }
             }
             else
             {
